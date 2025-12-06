@@ -16,19 +16,24 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Draco | Full-Stack Developer",
-  description: "I craft digital experiences with code. Full-Stack Developer specializing in modern web technologies.",
-  keywords: ["developer", "full-stack", "portfolio", "react", "next.js", "typescript"],
+  title: "Draco | AI Agent Builder & Full-Stack Developer",
+  description: "Building the future with AI-powered code. Full-Stack Developer crafting AI agents and intelligent applications with an AI-augmented workflow.",
+  keywords: ["AI agents", "full-stack developer", "Claude SDK", "LangChain", "Next.js", "TypeScript", "React", "AI development", "prompt engineering"],
   authors: [{ name: "Draco" }],
   openGraph: {
-    title: "Draco | Full-Stack Developer",
-    description: "I craft digital experiences with code.",
+    title: "Draco | AI Agent Builder & Full-Stack Developer",
+    description: "Building the future with AI-powered code. Crafting AI agents and intelligent applications.",
     type: "website",
+    images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Draco | Full-Stack Developer",
-    description: "I craft digital experiences with code.",
+    title: "Draco | AI Agent Builder",
+    description: "Building the future with AI-powered code.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
