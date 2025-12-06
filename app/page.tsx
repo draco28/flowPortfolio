@@ -1,65 +1,160 @@
-import Image from "next/image";
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowRight, Sparkles, Layers, Image, Waves } from "lucide-react";
+
+const demos = [
+  {
+    id: "combined",
+    title: "Combined (Selected)",
+    description: "SVG Avatar + Canvas Background - The best of both worlds with particles and animated character",
+    icon: Sparkles,
+    color: "coral",
+  },
+  {
+    id: "svg-avatar",
+    title: "Animated SVG Avatar",
+    description: "Stylized character illustration that blinks, moves, and changes poses on scroll",
+    icon: Sparkles,
+    color: "purple",
+  },
+  {
+    id: "lottie",
+    title: "Lottie Animation",
+    description: "Smooth vector animations with scroll-triggered transitions",
+    icon: Layers,
+    color: "blue",
+  },
+  {
+    id: "parallax",
+    title: "Parallax Floating",
+    description: "Photo/logo with floating orbs, shapes, and code snippets",
+    icon: Image,
+    color: "green",
+  },
+  {
+    id: "canvas",
+    title: "Canvas Effects",
+    description: "Particle system and mesh gradient effects for an abstract hero",
+    icon: Waves,
+    color: "blue",
+  },
+];
+
+const colorClasses: Record<string, string> = {
+  coral: "from-coral to-coral-dark",
+  purple: "from-accent-purple to-purple-600",
+  blue: "from-accent-blue to-blue-600",
+  green: "from-accent-green to-green-600",
+};
+
+const borderColorClasses: Record<string, string> = {
+  coral: "hover:border-coral/50",
+  purple: "hover:border-accent-purple/50",
+  blue: "hover:border-accent-blue/50",
+  green: "hover:border-accent-green/50",
+};
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="min-h-screen bg-dark">
+      {/* Floating Orbs */}
+      <div className="floating-orb floating-orb-coral w-96 h-96 -top-48 -right-48 float" />
+      <div className="floating-orb floating-orb-purple w-64 h-64 bottom-32 -left-32 float" style={{ animationDelay: "-3s" }} />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-20">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <span className="text-gradient-coral">DRACO</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-xl md:text-2xl text-text-secondary mb-4">
+            Portfolio Hero Style Demos
           </p>
+          <p className="text-text-muted max-w-2xl mx-auto">
+            Choose your preferred hero section style. Each demo showcases a different
+            approach to creating an impressive &quot;wow factor&quot; while maintaining performance.
+          </p>
+        </motion.div>
+
+        {/* Demo Grid */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {demos.map((demo, index) => (
+            <motion.div
+              key={demo.id}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 * (index + 1) }}
+            >
+              <Link href={`/demos/${demo.id}`}>
+                <div
+                  className={`neu-raised rounded-3xl p-8 smooth-transition hover-lift cursor-pointer group ${borderColorClasses[demo.color]}`}
+                >
+                  <div className="flex items-start gap-6">
+                    <div
+                      className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${colorClasses[demo.color]} flex items-center justify-center shadow-lg`}
+                    >
+                      <demo.icon className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h2 className="text-xl font-bold text-text-primary mb-2 group-hover:text-coral smooth-transition">
+                        {demo.title}
+                      </h2>
+                      <p className="text-text-secondary text-sm leading-relaxed">
+                        {demo.description}
+                      </p>
+                    </div>
+                    <ArrowRight className="w-6 h-6 text-text-muted group-hover:text-coral group-hover:translate-x-2 smooth-transition" />
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+        {/* Info Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-12"
+        >
+          <div className="neu-pressed rounded-3xl p-8 text-center">
+            <p className="text-text-secondary mb-4">
+              After viewing the demos, tell me which style you prefer and we&apos;ll build your full portfolio!
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <span className="badge badge-coral">Dark Neumorphic</span>
+              <span className="badge badge-purple">GSAP ScrollTrigger</span>
+              <span className="badge badge-blue">Framer Motion</span>
+              <span className="badge badge-green">Performance First</span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Tech Stack */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mt-12 text-center"
+        >
+          <p className="text-text-muted text-sm mb-4">Built with</p>
+          <div className="flex flex-wrap justify-center gap-4 text-text-secondary text-sm">
+            <span className="code-text">Next.js 15</span>
+            <span className="code-text">TypeScript</span>
+            <span className="code-text">Tailwind CSS v4</span>
+            <span className="code-text">GSAP</span>
+            <span className="code-text">Framer Motion</span>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 }
